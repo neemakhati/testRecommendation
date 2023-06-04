@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, Image, View, Text } from 'react-native';
 import { getRecommendations } from './RecommendationService';
 
 const RecommendationScreen = ({ route }) => {
@@ -16,6 +16,7 @@ const RecommendationScreen = ({ route }) => {
   }, [workshop]);
 
   return (
+    <ScrollView>
     <View>
       <Text>Top recommendations for {workshop}:</Text>
       {recommendations.map((recommendation, index) => (
@@ -23,9 +24,12 @@ const RecommendationScreen = ({ route }) => {
           <Text>Workshop: {recommendation.Workshop}</Text>
           <Text>College: {recommendation.College}</Text>
           <Text>Ratings: {recommendation.Ratings}</Text>
+          <Text>Description: {recommendation.Description}</Text>
+          <Image source={{ uri: recommendation.Images }} style={{ width: 300, height: 120 }} />
         </View>
       ))}
     </View>
+    </ScrollView>
   );
 };
 

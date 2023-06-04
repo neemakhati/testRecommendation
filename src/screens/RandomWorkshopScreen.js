@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { ScrollView, View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { fetchEvents } from './api';
 
@@ -35,16 +35,19 @@ const RandomWorkshopScreen = () => {
   };
 
   return (
-    <View>
-      <Text>Random Workshop:</Text>
-      <Text>{randomWorkshop}</Text>
-      <Button
-        title="Select as Favorite"
-        onPress={() => handleSelectWorkshop(randomWorkshop)}
-        disabled={!randomWorkshop}
-      />
-    </View>
+    <ScrollView>
+      <View>
+        <Text>Random Workshop:</Text>
+        <Text>{randomWorkshop}</Text>
+        <Button
+          title="Select as Favorite"
+          onPress={() => handleSelectWorkshop(randomWorkshop)}
+          disabled={!randomWorkshop}
+        />
+      </View>
+    </ScrollView>
   );
 };
+//n
 
 export default RandomWorkshopScreen;

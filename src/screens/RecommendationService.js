@@ -5,7 +5,7 @@ export const getRecommendations = async (workshop) => {
     const response = await axios.get('https://us-central1-events-network-cc384.cloudfunctions.net/api/events');
     const workshops = response.data;
 
-    console.log('Workshops:', workshops);
+    // console.log('Workshops:', workshops);
 
     const selectedWorkshop = workshops.find((item) => item.Workshop === workshop);
     const genre = selectedWorkshop ? selectedWorkshop.Genre : '';
@@ -14,7 +14,7 @@ export const getRecommendations = async (workshop) => {
       return item.Genre === genre && item.Ratings >= 4;
     });
 
-    console.log('Filtered Workshops:', filteredWorkshops);
+    // console.log('Filtered Workshops:', filteredWorkshops);
 
     if (filteredWorkshops.length === 0) {
       console.log('No recommendations found.');
@@ -23,7 +23,7 @@ export const getRecommendations = async (workshop) => {
 
     const sortedWorkshops = filteredWorkshops.sort((a, b) => b.Ratings - a.Ratings);
 
-    console.log('Sorted Workshops:', sortedWorkshops);
+    // console.log('Sorted Workshops:', sortedWorkshops);
 
     return sortedWorkshops;
   } catch (error) {
