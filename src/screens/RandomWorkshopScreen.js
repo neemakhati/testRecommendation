@@ -3,12 +3,13 @@ import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import { fetchEvents } from './api';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icons from 'react-native-vector-icons/FontAwesome'; 
 
 const RandomWorkshopScreen = () => {
   const [randomWorkshops, setRandomWorkshops] = useState([]);
   const [selectedWorkshops, setSelectedWorkshops] = useState([]);
   const navigation = useNavigation();
-
+  
   useEffect(() => {
     getRandomWorkshops();
   }, []);
@@ -62,6 +63,13 @@ const RandomWorkshopScreen = () => {
       navigation.navigate('RecommendationScreen', { workshop });
     }
   };
+  const starMappings = {
+    1: 'star',
+    2: 'star',
+    3: 'star',
+    4: 'star',
+    5: 'star',
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -70,6 +78,15 @@ const RandomWorkshopScreen = () => {
           <Image source={{ uri: workshop.Images }} style={styles.image} resizeMode="contain" />
           <View style={styles.textContainer}>
             <Text style={styles.workshopText}>{workshop.Workshop}</Text>
+            <Text style={styles.collegeText}>{workshop.College}</Text>
+            <View style={styles.ratingContainer}>
+                {Array(workshop.Ratings)
+                  .fill()
+                  .map((_, index) => (
+                    <Icon key={index} name={starMappings[workshop.Ratings]} style={styles.starIcon} />
+                  ))}
+                </View>
+
             <TouchableOpacity
               style={styles.favoriteButton}
               onPress={() => handleFavoriteWorkshop(workshop.Workshop)}
@@ -115,9 +132,24 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 8,
   },
+  collegeText: {
+    fontSize: 14,
+    color: '#333333',
+    marginBottom: 8,
+  },
   favoriteButton: {
     marginLeft: 'auto',
     padding: 8,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  
+  starIcon: {
+    color: 'gold',
+    fontSize: 20,
   },
 });
 

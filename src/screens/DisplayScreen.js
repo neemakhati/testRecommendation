@@ -1,20 +1,29 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
 const DisplayScreen = ({ route }) => {
+  const navigation = useNavigation();
   const workshop = route.params?.workshop;
+
+  const goToMapScreen = () => {
+    navigation.navigate('MapScreen', { workshop });
+  };
 
   return (
     <View style={styles.container}>
-      
       <View style={styles.card}>
         <Image source={{ uri: workshop.Images }} style={styles.image} resizeMode="contain" />
         <Text style={styles.title}>{workshop.Workshop}</Text>
         <Text style={styles.text}>{workshop.College}</Text>
+        <Text style={styles.loctext}>{workshop.Location}</Text>
         <Text style={styles.description}>"{workshop.Description}"</Text>
-        <Text style={styles.description}>"{workshop.Ratings}"</Text>
+        <TouchableOpacity onPress={goToMapScreen} style={styles.mapIcon}>
+          <Ionicons name="map" size={24} color="#333333" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -48,14 +57,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#333333',
     textAlign: 'center',
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
+    marginBottom: 5,
+    color: '#666666',
+    textAlign: 'center',
+  },
+  loctext: {
+    fontSize: 14,
     marginBottom: 5,
     color: '#666666',
     textAlign: 'center',
@@ -65,6 +80,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#444444',
     textAlign: 'center',
+  },
+  mapIcon: {
+    alignSelf: 'center',
+    marginTop: 20,
   },
 });
 
