@@ -58,11 +58,12 @@ const RandomWorkshopScreen = () => {
       ? selectedWorkshops.filter((selected) => selected !== workshop)
       : [...selectedWorkshops, workshop];
     setSelectedWorkshops(updatedSelectedWorkshops);
-
+  
     if (!isSelected) {
-      navigation.navigate('RecommendationScreen', { workshop });
+      navigation.navigate('RecommendationScreen', { selectedWorkshops: updatedSelectedWorkshops });
     }
   };
+  
   const starMappings = {
     1: 'star',
     2: 'star',
